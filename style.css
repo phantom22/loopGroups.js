@@ -1,0 +1,58 @@
+.physics-wrapper {
+	position: absolute;
+	height: 40px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	top: 0;
+	left: 0;
+	border: 1px solid black;
+}
+.element {
+	position: relative;
+	display: block;
+	width: 0px;
+	height: 100%;
+	min-width: 0px;
+	min-height: 30px;
+	padding: 0;
+	margin: 0;
+	background: black;
+}
+#timer {
+	position: absolute;
+	margin: auto;
+	top: 35%;
+}
+#meters {
+	position: absolute;
+	margin: auto;
+	top: 40%;
+}
+.e1 {
+	top: 0;
+}
+.e2 {
+	top: 5%;
+}
+.e3 {
+	top: 10%;
+}
+.e4 {
+	top: 15%;
+}
+.e5 {
+	top: 20%;
+}
+.e6 {
+	top: 25%;
+}
+.e7 {
+	top: 30%;
+}
+.e8 {
+	top: 35%;
+}
+.e9 {
+	top: 40%;
+}
