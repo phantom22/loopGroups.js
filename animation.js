@@ -150,15 +150,15 @@ let target7 = new animation(D.gE("element7"));
 let target8 = new animation(D.gE("element8"));
 let target9 = new animation(D.gE("element9"));
 
-target1.stretch("x",0,100,100);
-target2.stretch("x",0,100,50);
-target3.stretch("x",0,100,25);
-target4.stretch("x",0,100,12.5);
-target5.stretch("x",0,100,6.25);
-target6.stretch("x",0,100,3.125);
-target7.stretch("x",0,100,1.5625);
-target8.stretch("x",0,100,0.78125);
-target9.stretch("x",0,100,0.390625);
+target1.stretch("x",0,100,1600);
+target2.stretch("x",0,100,800);
+target3.stretch("x",0,100,400);
+target4.stretch("x",0,100,200);
+target5.stretch("x",0,100,100);
+target6.stretch("x",0,100,50);
+target7.stretch("x",0,100,25);
+target8.stretch("x",0,100,12.5);
+target9.stretch("x",0,100,6.25);
 
 //target.stretch("y",0,100,10)
 //target.test("stretch",0,100,50,false,2,"x");
