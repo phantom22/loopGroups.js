@@ -6,7 +6,7 @@
 	padding: 0;
 	top: 0;
 	left: 0;
-	border: 1px solid black;
+	border: 1px solid transparent;
 }
 .element {
 	position: relative;
