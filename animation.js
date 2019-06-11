@@ -2,13 +2,13 @@ let T = TOOL; let D = T.DOM;
 
 class animation {
 
-	constructor(object,timer,meters) {
+	constructor(object,timer,progress) {
 
 		this.results = [];
 
 		let O1 = object;
 		let O2 = timer;
-		let O3 = meters;
+		let O3 = progress;
 
 		if (O1 && O1 instanceof HTMLElement) {
 			this.O1 = object;
@@ -17,7 +17,7 @@ class animation {
 			this.O2 = timer;
 		}
 		if (O3 && O3 instanceof HTMLElement) {
-			this.O3 = meters;
+			this.O3 = progress;
 		}
 
 	}
