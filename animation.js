@@ -2,143 +2,199 @@ let T = TOOL; let D = T.DOM;
 
 class animation {
 
-	constructor(object,timer,progress) {
+  constructor(object,timer,progress) {
 
-		this.results = [];
+    this.results = [];
 
-		let O1 = object;
-		let O2 = timer;
-		let O3 = progress;
+    let O1 = object;
+    let O2 = timer;
+    let O3 = progress;
 
-		if (O1 && O1 instanceof HTMLElement) {
-			this.O1 = object;
-		}
-		if (O2 && O2 instanceof HTMLElement) {
-			this.O2 = timer;
-		}
-		if (O3 && O3 instanceof HTMLElement) {
-			this.O3 = progress;
-		}
+    if (O1 && O1 instanceof HTMLElement) {
+      this.O1 = object;
+    }
+    if (O2 && O2 instanceof HTMLElement) {
+      this.O2 = timer;
+    }
+    if (O3 && O3 instanceof HTMLElement) {
+      this.O3 = progress;
+    }
 
-	}
+  }
 
-	stretch(verse,sWidth,fWidth,speed,debug,freq) {
+  stretch(verse,[sWidth,fWidth,speed,freq],debug) {
 
-		let startTime;
+    let startTime;
 
-		let p = sWidth; let d = fWidth; let s = speed; 
-		let pr = !isNaN(freq) && freq > 0 ? freq : 62.51; 
-		let time = 0; let results = [];
+    let p = sWidth; let d = fWidth; let s = speed; 
+    let pr = !isNaN(freq) && freq > 0 ? freq : 62.51; 
+    let time = 0; let results = [];
 
-		let O1 = this.O1;
-		let O2 = this.O2;
-		let O3 = this.O3;
+    let O1 = this.O1;
+    let O2 = this.O2;
+    let O3 = this.O3;
 
-		if (verse&&verse=="x"||verse=="y"&&d&&s&&!isNaN(p+d+s)&&p>=0&&p<100&&d>1&&d<=100&&speed>0) {
+    if (verse&&verse=="x"||verse=="y"&&d&&s&&!isNaN(p+d)&&p>=0&&p<100&&d>1&&d<=100&&speed>0||speed=="auto") {
 
-			let startDate; let startMin; let startSec;
+      let startDate; let startMin; let startSec;
 
-			if (debug) {
+      if (debug) {
 
-				startDate = new Date();
-				startMin = startDate.getMinutes();
-				startSec = Number(startDate.toISOString().slice(17, -1));
+        startDate = new Date();
+        startMin = startDate.getMinutes();
+        startSec = Number(startDate.toISOString().slice(17, -1));
 
-			}
+      }
 
-			let t = time;
+      let t = time;
 
-			let animation = setInterval(function(startSec,startMin,verse){
+      if (verse == "x") {
 
-				if (p < d) {
+        verse = "width";
+      }
 
-					p = p + (speed / pr);
-					p = p > d ? d : p;
-					t = t + (1000 / pr);
-					t = t > (d / s) * 1000 ? (d / s) * 1000 : t;
+      else if (verse == "y") {
 
-					if (O1 && O1 instanceof HTMLElement) {
-						if (verse == "x") {
-							O1.style.width = p + "%";
-						}
-						else if (verse == "y") {
-							O1.style.height = p + "%";
-						}
-					}
-					if (O2 && O2 instanceof HTMLElement) {
-						O2.textContent = `${(t / 1000).toFixed(1)}s`;
-					}
-					if (O3 && O3 instanceof HTMLElement) {
-						O3.textContent = `${p.toFixed(2)}%`;
-					}
+        verse = "height";
 
-				}
+      }
 
-				else {
+      let animation = setInterval(function(startSec,startMin,verse,fWidth){
 
-					if (debug) {
+        if (p < d && !isNaN(speed)) {
 
-						let finalDate = new Date();
-						let finalMin = finalDate.getMinutes();
-						let finalSec = Number(finalDate.toISOString().slice(17, -1));
-						let result = startMin == finalMin ? finalSec - startSec : (60 - startSec) + finalSec + (60* (finalMin - startMin)) - 60;
-						results.push(pr,result,t);
+          p = p + (speed / pr);
+          p = p > d ? d : p;
+          t = t + (1000 / pr);
+          t = t > (d / s) * 1000 ? (d / s) * 1000 : t;
 
-					}
+          if (O1 && O1 instanceof HTMLElement) {
+            O1.style[verse] = p + "%";
+          }
+          if (O2 && O2 instanceof HTMLElement) {
+            O2.textContent = `${(t / 1000).toFixed(1)}s`;
+          }
+          if (O3 && O3 instanceof HTMLElement) {
+            O3.textContent = `${p.toFixed(2)}%`;
+          }
 
-					clearInterval(animation);
+        }
 
-				}
+        else {
 
-			},(1000 / pr),startSec,startMin,verse);
+          if (speed == "auto") {
 
-			this.results.push(results);
+          	p = fWidth;
+          	O1.style[verse] = fWidth + "%";
 
-		}
+          }
 
-	}
+          if (debug) {
 
-	test(animation,sWidth,fWidth,speed,freq,tests,...args) {
+            let finalDate = new Date();
+            let finalMin = finalDate.getMinutes();
+            let finalSec = Number(finalDate.toISOString().slice(17, -1));
+            let result = startMin == finalMin ? finalSec - startSec : (60 - startSec) + finalSec + (60* (finalMin - startMin)) - 60;
+            results.push(pr,result,t);
 
-		let pr = !freq ? undefined : freq;
+          }
 
-		if (animation && typeof animation == "string" && tests && !isNaN(tests) && typeof args[0] == "string") {
+          clearInterval(animation);
 
-			this.results = []; let safeTime = (((fWidth - sWidth) / speed) * 1000 + (tests * 25) + 500); let verse;
+        }
 
-			console.log(`safeTime: ${safeTime / 1000}s`);
+      },(1000/pr), startSec, startMin, verse, fWidth);
 
-			if (animation == "stretch") {
+      this.results.push(results);
 
-				verse = args[0];
+    }
 
-			}
+  }
 
-			for (let i = 0; i < tests; i++) {
+  test(animation,[sWidth,fWidth,speed,freq],tests,...args) {
 
-				this.stretch(verse,0,100,50,true,pr);
+    freq = !freq ? undefined : freq;
 
-			}
+    if (animation && typeof animation == "string" && tests && !isNaN(tests) && typeof args[0] == "string") {
 
-			setTimeout(function(results){
+      this.results = []; let safeTime = (((fWidth - sWidth) / speed) * 1000 + (tests * 25) + 500); let verse;
 
-				let differences = []; let avg; let tTime; let latency;
+      console.log(`safeTime: ${safeTime / 1000}s`);
 
-				results.forEach(v=>differences.push(v[1]));
-				tTime = results[0][2] / 1000;
-				avg = differences.reduce((a,b)=>a+b) / differences.length;
-				latency = avg - tTime;
+      if (animation == "stretch") {
 
-				console.table(differences);
-				console.log(`avg: ${avg}, latency: ${latency}, simultaneous animations: ${differences.length}`);
+        verse = args[0];
 
-			},safeTime,this.results);
+      }
 
-		}
+      for (let i = 0; i < tests; i++) {
 
-	}
+        this.stretch(verse,[sWidth,fWidth,speed,freq],true);
+
+      }
+
+      setTimeout(function(results){
+
+        let differences = []; let avg; let tTime; let latency;
+
+        results.forEach(v => differences.push(v[1]));
+        tTime = results[0][2] / 1000; // theorical time
+        avg = differences.reduce((a,b) => a + b) / differences.length; // average
+        latency = avg - tTime; // average - theorical time
+
+        console.table(differences);
+        console.log(`avg: ${avg}, latency: ${latency}, simultaneous animations: ${differences.length}`);
+
+      }, safeTime, this.results);
+
+    }
+
+  }
 
 }
+
+class multiAnimation {
+
+  constructor(...elems) {
+
+    this.elements = [];
+
+    elems.forEach(v => {
+
+      if (v instanceof animation) {
+
+        this.elements.push(v);
+
+      }
+      
+    });
+
+  }
+
+  animate(animation,[sWidth,fWidth,speed,freq],...args) {
+
+    if (animation && typeof animation == "string" && !isNaN(sWidth+fWidth) && typeof args[0] == "string" && speed > 0 || speed == "auto") {
+
+      let elems = this.elements;
+
+      if (animation == "stretch") {
+
+        let verse = args[0];
+
+        Object.keys(elems).forEach(v => {
+
+          elems[v].stretch(verse,[sWidth,fWidth,speed,freq]);
+
+        });
+
+      }
+
+    }
+
+  }
+
+}
+
 
 let target1 = new animation(D.gE("element1"));
 let target2 = new animation(D.gE("element2"));
@@ -161,27 +217,16 @@ let target18 = new animation(D.gE("element18"));
 let target19 = new animation(D.gE("element19"));
 let target20 = new animation(D.gE("element20"));
 
-target1.stretch("x",0,100,3200);
-target2.stretch("x",0,100,800);
-target3.stretch("x",0,100,1600);
-target4.stretch("x",0,100,400);
-target5.stretch("x",0,100,800);
-target6.stretch("x",0,100,200);
-target7.stretch("x",0,100,400);
-target8.stretch("x",0,100,100);
-target9.stretch("x",0,100,200);
-target10.stretch("x",0,100,50);
-target11.stretch("x",0,100,100);
-target12.stretch("x",0,100,25);
-target13.stretch("x",0,100,50);
-target14.stretch("x",0,100,12.5);
-target15.stretch("x",0,100,25);
-target16.stretch("x",0,100,6.25);
-target17.stretch("x",0,100,12.5);
-target18.stretch("x",0,100,3.125);
-target19.stretch("x",0,100,6.25);
-target20.stretch("x",0,100,1.5625);
+let macros1 = new multiAnimation(target1,target3,target5,target7,target9,target11,target13,target15,target17,target19);
 
-
-//target.stretch("y",0,100,10)
-//target.test("stretch",0,100,50,false,2,"x");
+macros1.animate("stretch",[0,100,"auto"],"x");
+target2.stretch("x",[0,100,1.4]);
+target4.stretch("x",[0,100,1.9599999999999997]);
+target6.stretch("x",[0,100,2.7439999999999993]);
+target8.stretch("x",[0,100,3.841599999999999]);
+target10.stretch("x",[0,100,5.378239999999998]);
+target12.stretch("x",[0,100,7.529535999999997]);
+target14.stretch("x",[0,100,10.541350399999995]);
+target16.stretch("x",[0,100,14.757890559999993]);
+target18.stretch("x",[0,100,20.66104678399999]);
+target20.stretch("x",[0,100,28.925465497599983]);
