@@ -149,16 +149,39 @@ let target6 = new animation(D.gE("element6"));
 let target7 = new animation(D.gE("element7"));
 let target8 = new animation(D.gE("element8"));
 let target9 = new animation(D.gE("element9"));
+let target10 = new animation(D.gE("element10"));
+let target11 = new animation(D.gE("element11"));
+let target12 = new animation(D.gE("element12"));
+let target13 = new animation(D.gE("element13"));
+let target14 = new animation(D.gE("element14"));
+let target15 = new animation(D.gE("element15"));
+let target16 = new animation(D.gE("element16"));
+let target17 = new animation(D.gE("element17"));
+let target18 = new animation(D.gE("element18"));
+let target19 = new animation(D.gE("element19"));
+let target20 = new animation(D.gE("element20"));
 
-target1.stretch("x",0,100,1600);
+target1.stretch("x",0,100,3200);
 target2.stretch("x",0,100,800);
-target3.stretch("x",0,100,400);
-target4.stretch("x",0,100,200);
-target5.stretch("x",0,100,100);
-target6.stretch("x",0,100,50);
-target7.stretch("x",0,100,25);
-target8.stretch("x",0,100,12.5);
-target9.stretch("x",0,100,6.25);
+target3.stretch("x",0,100,1600);
+target4.stretch("x",0,100,400);
+target5.stretch("x",0,100,800);
+target6.stretch("x",0,100,200);
+target7.stretch("x",0,100,400);
+target8.stretch("x",0,100,100);
+target9.stretch("x",0,100,200);
+target10.stretch("x",0,100,50);
+target11.stretch("x",0,100,100);
+target12.stretch("x",0,100,25);
+target13.stretch("x",0,100,50);
+target14.stretch("x",0,100,12.5);
+target15.stretch("x",0,100,25);
+target16.stretch("x",0,100,6.25);
+target17.stretch("x",0,100,12.5);
+target18.stretch("x",0,100,3.125);
+target19.stretch("x",0,100,6.25);
+target20.stretch("x",0,100,1.5625);
+
 
 //target.stretch("y",0,100,10)
 //target.test("stretch",0,100,50,false,2,"x");
