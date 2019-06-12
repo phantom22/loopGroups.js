@@ -1,12 +1,16 @@
+body {
+	background: #76bdd5;
+}
+
 .animation-wrapper {
 	position: absolute;
-	height: 45px;
+	height: 48px;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	top: 0;
 	left: 0;
-	border: 1px solid black;
+	border: none;
 }
 .element {
 	position: relative;
@@ -17,7 +21,7 @@
 	min-height: 30px;
 	padding: 0;
 	margin: 0;
-	background: black;
+	background: #ec5f5f;
 }
 #timer {
 	position: absolute;
