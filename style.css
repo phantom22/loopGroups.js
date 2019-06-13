@@ -1,10 +1,10 @@
 body {
-	background: /*#76bdd5*/ white;
+	background: lightcoral;
 }
 
 .animation-wrapper {
 	position: absolute;
-	height: 48px;
+	height: 30px;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -21,7 +21,8 @@ body {
 	min-height: 30px;
 	padding: 0;
 	margin: 0;
-	background: /*#ec5f5f*/ black;
+	background: #333;
+	opacity: 0.5;
 }
 #timer {
 	position: absolute;

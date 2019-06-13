@@ -282,54 +282,6 @@ class animationManager {
 
 }
 
+Document.addEventListener("visibilitychange",function(){
 
-let target1 = new animation(D.gE("element1"));
-let target2 = new animation(D.gE("element2"));
-let target3 = new animation(D.gE("element3"));
-let target4 = new animation(D.gE("element4"));
-let target5 = new animation(D.gE("element5"));
-let target6 = new animation(D.gE("element6"));
-let target7 = new animation(D.gE("element7"));
-let target8 = new animation(D.gE("element8"));
-let target9 = new animation(D.gE("element9"));
-let target10 = new animation(D.gE("element10"));
-let target11 = new animation(D.gE("element11"));
-let target12 = new animation(D.gE("element12"));
-let target13 = new animation(D.gE("element13"));
-let target14 = new animation(D.gE("element14"));
-let target15 = new animation(D.gE("element15"));
-let target16 = new animation(D.gE("element16"));
-let target17 = new animation(D.gE("element17"));
-let target18 = new animation(D.gE("element18"));
-let target19 = new animation(D.gE("element19"));
-let target20 = new animation(D.gE("element20"));
-
-let macros1 = new multiAnimation(target1,target2,target3,target4);
-let macros2 = new multiAnimation(target5,target6,target7,target8);
-let macros3 = new multiAnimation(target9,target10,target11,target12);
-let macros4 = new multiAnimation(target13,target14,target15,target16);
-let macros5 = new multiAnimation(target17,target18,target19,target20);
-/*let macros6 = new multiAnimation(target6);
-let macros7 = new multiAnimation(target7);
-let macros8 = new multiAnimation(target8);
-let macros9 = new multiAnimation(target9);
-let macros10 = new multiAnimation(target10);
-let macros11 = new multiAnimation(target11);
-let macros12 = new multiAnimation(target12);
-let macros13 = new multiAnimation(target13);
-let macros14 = new multiAnimation(target14);
-let macros15 = new multiAnimation(target15);
-let macros16 = new multiAnimation(target16);
-let macros17 = new multiAnimation(target17);
-let macros18 = new multiAnimation(target18);
-let macros19 = new multiAnimation(target19);
-let macros20 = new multiAnimation(target20);*/
-
-let manager = new animationManager();
-
-let m = 17.5;
-let macrosArr = [macros1,macros2,macros3,macros4,macros5/*,macros6,macros7,macros8,macros9,macros10,macros11,macros12,macros13,macros14,macros15,macros16,macros17,macros18,macros19,macros20*/];
-let animationArr = [[0,100,20],[0,100,20],[0,100,20],[0,100,20],[0,100,20]/*,[0,100,15+m],[0,100,17.5+m],[0,100,20+m],[0,100,22.5+m],[0,100,25+m],[0,100,27.5+m],[0,100,30+m],[0,100,32.5+m],[0,100,35+m],[0,100,37.5+m],[0,100,40+m],[0,100,42.5+m],[0,100,45+m],[0,100,47.5+m],[0,100,50+m]*/];
-let delres = [[0,1000],[2000,1000],[1000,1000],[3000,1000],[2000,1000]/*,[500,5000],[600,5000],[700,5000],[800,5000],[900,5000],[1000,5000],[1100,5000],[1200,5000],[1300,5000],[1400,5000],[1500,5000],[1600,5000],[1700,5000],[1800,5000],[1900,5000]*/];
-
-manager.loopDelay(macrosArr,"stretch",animationArr,"x",delres);
+}, false);
