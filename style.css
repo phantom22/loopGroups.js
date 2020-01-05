@@ -1,5 +1,5 @@
 body {
-	background: lightcoral;
+	background: rgb(200, 128, 128);
 }
 
 .animation-wrapper {
@@ -16,12 +16,12 @@ body {
 	position: relative;
 	display: block;
 	width: 0px;
-	height: 100%;
+	height: 130%;
 	min-width: 0px;
-	min-height: 30px;
+	min-height: 45px;
 	padding: 0;
 	margin: 0;
-	background: #333;
+	background: rgb(240, 200,200);
 	opacity: 0.5;
 }
 #timer {
@@ -33,6 +33,9 @@ body {
 	position: absolute;
 	margin: auto;
 	top: 40%;
+}
+.right {
+	float: right;
 }
 .e1 {
 	top: 0;
