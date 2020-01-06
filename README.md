@@ -37,6 +37,6 @@ background.startLoop(62.51) // the number indicates the refresh rate of the anim
 // pausing an animation, repeating this function will unpause it
 background.pause();
 
-// resetting an animation, the object will preserve its parameters but in order to re-activate it you need to call the .startLoop() function
+// resetting an animation, the object will preserve its parameters but in order to re-activate it you need to call the .startLoop() function again
 background.reset();
 ```
