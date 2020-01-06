@@ -1,6 +1,6 @@
 # animationGroup.js
 
-A tool to easily group objects and creatig animation loops by adding multiple parameters.
+A tool to easily group objects and creating animation loops by adding multiple parameters.
 
 Current avaiable animation: **Stretching**
 
@@ -9,8 +9,8 @@ Current avaiable animation: **Stretching**
 | Parameters   | Description                                                                         |
 |--------------|-------------------------------------------------------------------------------------|
 | sWidth       |  starting width of an element at the beginning of the animation                     |
-| fWidth       |  width at of an element at the end of the animation                                 |
-| stretchSpeed |  amount of width in % that will affect an element each second                       |
+| fWidth       |  width of an element at the end of the animation                                    |
+| stretchSpeed |  amount of width in % that will increase or decrease an elements width each second  |
 | initialDelay |  timeout function to unpause an element at the start of the animation               |
 | rest         |  timeout function to unpause an element after it reaches its sWidth or fWidth value |   
 
@@ -34,4 +34,9 @@ background.setProperties({
 
 background.startLoop(62.51) // the number indicates the refresh rate of the animation
 
+// pausing an animation, repeating this function will unpause it
+background.pause();
+
+// resetting an animation, the object will preserve its parameters but in order to re-activate it you need to call the .startLoop() function
+background.reset();
 ```
