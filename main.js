@@ -1,7 +1,6 @@
 let bg = new loopGroup([".element"]);
 
 bg.setProperties({
-	properties:["width","height"],
 	width:{
 	    starting:        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	    final:           [100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100],
