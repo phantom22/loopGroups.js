@@ -1,6 +1,7 @@
 # loopGroups.js
 
 A tool to easily group elements and creating animation loops by adding multiple parameters.
+Currently supported animations: **All the css properties that involve a percentage**
 
 
 ### CSS property parameters
@@ -40,6 +41,11 @@ background.startLoop(62.51) // the number indicates the refresh rate of the anim
 // pausing an animation, to restart it you need to re-call the function
 background.pause();
 
-// resetting an animation, the object will preserve its parameters but in order to re-activate it you need to call the .startLoop() function again
+/* resetting an animation, the object will preserve its parameters but 
+   in order to re-activate it you need to call the .startLoop() function again */
 background.reset();
+
+// it's also possible to make the animation faster of slower by changing the speedMultiplier variable
+bg.animation.speedMultiplier = 2; // 2x faster
+bg.animation.speedMultiplier = 0.1; // 10 times slower
 ```
