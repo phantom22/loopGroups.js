@@ -1,6 +1,6 @@
 # loopGroups.js
 
-A tool to easily group objects and creating animation loops by adding multiple parameters.
+A tool to easily group elements and creating animation loops by adding multiple parameters.
 
 
 ### CSS property parameters
