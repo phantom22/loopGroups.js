@@ -5,13 +5,13 @@ A tool to easily group objects and creating animation loops by adding multiple p
 
 ### CSS property parameters
 
-| Arrays       |  Description                                                                        |  Type                  |
-|:------------:|:------------------------------------------------------------------------------------|:----------------------:|
-| starting     |  starting value of an elements property at the beginning of the animation           |  Number in %           |
-| final        |  property value of an element at the end of the animation                           |  Number in %           |
-| changeSpeed  |  defines how much a property gains or loses each second                             |  Number in %           |
-| initialDelay |  the time before an element starts moving, therefore starting its animation         |  Number in milliseconds|
-| rest         |  the time that an element will wait before moving after each animation cycle        |  Number in milliseconds| 
+| Arrays        |  Types of Numbers  |  Description                                                                  |
+|:-------------:|:------------------:|:------------------------------------------------------------------------------|
+| starting      |  Percentage        |  starting value of an elements property at the beginning of the animation     |
+| final         |  Percentage        |  property value of an element at the end of the animation                     |
+| changeSpeed   |  Percentage        |  defines how much a property gains or loses each second                       |
+| initialDelay  |  milliseconds      |  the time before an element starts moving, therefore starting its animation   |
+| rest          |  milliseconds      |  the time that an element will wait before moving after each animation cycle  | 
 
 ### Syntax
 
