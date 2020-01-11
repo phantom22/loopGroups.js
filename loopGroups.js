@@ -47,7 +47,6 @@ class loopGroup extends Controller {
 
   /**
    * @param  {Object}  args                         Encapsulates all the parameters.
-   * @param  {Array}   properties                   Defines what properties you are willing to add to the animation.
    * @param  {Object}  <CSS property>               Defines the animation values of a certain property *defined in the "properties" Array.
    * @param  {Array}   <CSS property>.starting      Starting value of a property.
    * @param  {Array}   <CSS property>.final         Final value of a property (the animation will start another loop after reaching it).
@@ -60,7 +59,7 @@ class loopGroup extends Controller {
     const t = this,
     elementQuantity = Object.keys(t.elements).length,
     validate = (arr) => typeof arr !== "undefined" && Array.isArray(arr) && arr.length === elementQuantity && typeof arr.reduce((a,b)=>a+b) === "number",
-    properties = args.properties;
+    properties = Object.keys(args);
 
     for ( let i = 0; i < properties.length; i++ ) {
 
