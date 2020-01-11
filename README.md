@@ -21,11 +21,9 @@ const background = new loopGroup(["#elem1","#elem2",".groupOfElements"]);
 
 background.setProperties({
 
-/* all the arrays lengths must match the number of the elements found with their respective css queries.
-   the index of each value corresponds to an element; 
-   if a property is not declared inside the "properties" array it will be ignored
+/* all the arrays lengths must match the number of the elements found with their respective css queries and
+   the index of each value corresponds to an element.
 */
-  properties: ["width"],
   width:{
     starting:      [0,0,0,0,0], // in this case all the elements start with 0% width property
     final:         [100,90,80,70,60], // when an element reaches this value it will restart the animation loop
