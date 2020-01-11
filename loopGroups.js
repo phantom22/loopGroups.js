@@ -2,7 +2,7 @@ class Controller {
 
   constructor( root ) {
 
-  	const t = this;
+    const t = this;
 
     if ( Array.isArray(root) && root.length >= 1 ) {
 
@@ -164,10 +164,10 @@ class loopGroup extends Controller {
 
   initialDelays() {
 
-  	const t = this,
-  	elements = t.elements,
-  	a = t.animation,
-  	properties = t.properties;
+    const t = this,
+    elements = t.elements,
+    a = t.animation,
+    properties = t.properties;
 
     if ( typeof a !== "undefined" ) {
 
@@ -175,14 +175,14 @@ class loopGroup extends Controller {
 
       for ( let i = 0; i < elementQuantity; i++ ) {
 
-      	for ( let I = 0; I < properties.length; I++ ) {
+        for ( let I = 0; I < properties.length; I++ ) {
 
-      	  const element = elements[i],
-      	  property = properties[I],
-      	  v = element.values[property],
-      	  onpause = v[5],
-      	  initialDelay = v[3],
-      	  speedMultiplier = a.speedMultiplier;
+          const element = elements[i],
+          property = properties[I],
+          v = element.values[property],
+          onpause = v[5],
+          initialDelay = v[3],
+          speedMultiplier = a.speedMultiplier;
 
           if ( onpause === true && initialDelay > 0 ) {
 
@@ -206,7 +206,7 @@ class loopGroup extends Controller {
 
   startLoop( refreshRate ) {
 
-  	const t = this;
+    const t = this;
 
     if ( typeof refreshRate === "number" && refreshRate >= 1 ) {
 
@@ -234,9 +234,9 @@ class loopGroup extends Controller {
 
   pause() {
 
-  	const t = this,
-  	animation = t.animation,
-  	onpause = animation.onpause;
+    const t = this,
+    animation = t.animation,
+    onpause = animation.onpause;
 
     if ( typeof animation !== "undefined" ) {
 
@@ -248,9 +248,9 @@ class loopGroup extends Controller {
 
   reset() {
 
-  	const t = this,
-  	animation = t.animation,
-  	display  = animation.display;
+    const t = this,
+    animation = t.animation,
+    display  = animation.display;
 
     if ( typeof animation !== "undefined" ) {
 
@@ -263,9 +263,9 @@ class loopGroup extends Controller {
 
   rest( elementIndex, property ) {
 
-  	const t = this,
-  	element = t.elements[elementIndex],
-  	speedMultiplier = t.animation.speedMultiplier;
+    const t = this,
+    element = t.elements[elementIndex],
+    speedMultiplier = t.animation.speedMultiplier;
 
     if ( typeof element !== "undefined" && typeof property === "string" && t.properties.includes(property) ) {
 
