@@ -4,7 +4,7 @@ body {
 
 .animation-wrapper {
 	position: absolute;
-	height:3.85%;
+	height: 30px;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -17,11 +17,10 @@ body {
 	display: block;
 	width: 0px;
 	height: 130%;
-	min-width: 0px;
 	padding: 0;
 	margin: 0;
-	background: /*rgb(240, 200,200)*/white;
-	opacity: 0.35;
+	background: rgb(240, 200,200);
+	opacity: 0.5;
 }
 #timer {
 	position: absolute;
