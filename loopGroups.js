@@ -157,7 +157,7 @@ class loopGroup extends Controller {
 
               if ( value >= final && verse === 0 || value <= starting && verse === 1 ) {
 
-              	const p = verse === 0 ? cache.length : cache.length - 1;
+              	const p = cache.length - 1;
 
                 t.elements[i].values[property][6] = verse === 0 ? 1 : 0;
                 t.rest(i,property);
@@ -196,7 +196,9 @@ class loopGroup extends Controller {
 
               }
 
-              if ( pause.includes(t.elements[i].cache._cacheIndex[property]) ) {
+              if ( pause.includes(t.elements[i].cache._cacheIndex[property] - 1) ) {
+
+              	console.log(t.elements[i].cache._cacheIndex[property],pause)
 
                 t.rest(i,property);
 
