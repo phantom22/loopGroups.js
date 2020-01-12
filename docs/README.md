@@ -1,7 +1,37 @@
 # loopGroups.js
 
 A tool to easily group elements and creating animation loops by adding multiple parameters.
-Currently supported animations: **All the css properties that involve a percentage**
+
+Currently supported properties: **All the css properties that involve a percentage**
+
+Technically it's possible to set an elements animation *measure* to "px" or else;
+```javascript
+
+const group1 = new loopGroup(["#elem1","#elem2"]);
+
+group1.setProperties({
+
+  width:{
+    starting:      [100,100],
+    final:         [1000,1000],
+    changeSpeed:   [100,100],
+    initialDelay:  [0,0],
+    rest:          [0,0]
+  }
+  
+})
+
+// manually changing the measure from "%" to "px"
+for ( let element in group1.elements ) {
+
+   element.style.width.measure = "px";
+
+}
+/*
+  now both elements at the start of the animation will have 100px width and 
+  at the end they'll reach 1000px, by stretching 100px per second
+*/
+```
 
 
 ### CSS property parameters
