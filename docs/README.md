@@ -51,3 +51,6 @@ background.reset();
 
 ```
 After finishing one cycle of the animation all the values are **cached**.
+Also the animation doesn't compromise when changing tabs or hiding the browser window.
+
+**Next step:** making so the animation stops when the user is not on the same tab as the animation (for now the animation actually stops when the browser windows is inactive).
