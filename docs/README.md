@@ -40,7 +40,7 @@ background.setProperties({
   
 })
 
-background.startLoop(62.51) // the number indicates the refresh rate of the animation
+background.startLoop();
 
 // pausing an animation, to restart it you need to re-call the function
 background.pause();
