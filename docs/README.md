@@ -2,47 +2,23 @@
 
 A tool to easily group elements and creating animation loops by adding multiple parameters.
 
-Currently supported properties: **All the css properties that involve a percentage**
+*Currently all the css properties that involve a number are supported!*
 
-### Technically it's possible to set an elements animation *measure* to "px" or else;
-```javascript
+## CSS property parameters
 
-const group1 = new loopGroup(["#elem1","#elem2"]);
-
-group1.setProperties({
-
-  width:{
-    starting:      [100,100],
-    final:         [1000,1000],
-    changeSpeed:   [100,100],
-    initialDelay:  [0,0],
-    rest:          [0,0]
-  }
-  
-})
-
-// manually changing the measure from "%" to "px"
-for ( let element in group1.elements ) {
-
-   group1.elements[element].style.width.measure = "px";
-
-}
-/*
-  now both elements at the start of the animation will have 100px width and 
-  at the end they'll reach 1000px, by stretching 100px per second
-*/
-```
-
-
-### CSS property parameters
-
-| Arrays        |  Type of Number  |  Description                                                                  |
+| Related to properties |  Type                 |  Description                                                     |
 |:-------------:|:----------------:|:------------------------------------------------------------------------------|
-| starting      |  Percentage      |  starting value of an elements property at the beginning of the animation     |
-| final         |  Percentage      |  property value of an element at the end of the animation                     |
-| changeSpeed   |  Percentage      |  defines how much a property gains or loses each second                       |
+| starting      |  Number          |  starting value of an elements property at the beginning of the animation     |
+| final         |  Number          |  property value of an element at the end of the animation                     |
+| changeSpeed   |  Number          |  defines how much a property gains or loses each second                       |
+| measure       |  String          |  defines the measure of the previous three properties; by default set to "%"  |
+
+| Related to time | Type of Number |  Description                                                                  |
+|:-------------:|:----------------:|:------------------------------------------------------------------------------|
 | initialDelay  |  milliseconds    |  the time before an element starts moving, therefore starting its animation   |
-| rest          |  milliseconds    |  the time that an element will wait before moving after each animation cycle  | 
+| rest          |  milliseconds    |  the time that an element will wait before moving after each animation cycle  |
+
+**Note: only the measure property can be omitted**
 
 ### Syntax
 
