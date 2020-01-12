@@ -79,7 +79,7 @@ class loopGroup extends Controller {
 
           // [ starting, final, changeSpeed, initialDelay, rest, onpause, verse ]
           t.elements[I].values[property] = [starting[I], final[I], changeSpeed[I], initialDelay[I], rest[I], initialDelay[I] > 0 ? true : false, 0];
-          t.elements[I].style[property] = { value: currentValue, measure: "%" };
+          t.elements[I].style[property] = { value: starting[I], measure: "%" };
           t.elements[I].cache[property] = [];
           t.elements[I].cache._cached[property] = false;
           t.elements[I].cache._cacheIndex[property] = 0;
