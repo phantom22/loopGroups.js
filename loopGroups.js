@@ -198,8 +198,6 @@ class loopGroup extends Controller {
 
               if ( pause.includes(t.elements[i].cache._cacheIndex[property] - 1) ) {
 
-              	console.log(t.elements[i].cache._cacheIndex[property],pause)
-
                 t.rest(i,property);
 
               }
