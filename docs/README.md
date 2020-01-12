@@ -4,7 +4,7 @@ A tool to easily group elements and creating animation loops by adding multiple 
 
 Currently supported properties: **All the css properties that involve a percentage**
 
-Technically it's possible to set an elements animation *measure* to "px" or else;
+### Technically it's possible to set an elements animation *measure* to "px" or else;
 ```javascript
 
 const group1 = new loopGroup(["#elem1","#elem2"]);
@@ -24,7 +24,7 @@ group1.setProperties({
 // manually changing the measure from "%" to "px"
 for ( let element in group1.elements ) {
 
-   element.style.width.measure = "px";
+   group1.elements[element].style.width.measure = "px";
 
 }
 /*
