@@ -45,51 +45,52 @@ class loopGroup extends Controller {
 
   }
 
-  /**
-   * @param  {Object}  args                         Encapsulates all the parameters.
-   * @param  {Object}  <CSS property>               Defines the animation values of a certain property *defined in the "properties" Array.
-   * @param  {Array}   <CSS property>.starting      Starting value of a property.
-   * @param  {Array}   <CSS property>.final         Final value of a property (the animation will start another loop after reaching it).
-   * @param  {Array}   <CSS property>.changeSpeed   This defines how fast a property will change ( this number will be added to the current property value each second ).
-   * @param  {Array}   <CSS property>.initialDelay  Defines how much time (in milliseconds) the elements animation will wait before starting.
-   * @param  {Array}   <CSS property>.rest          Defines how much time (in milliseconds) the elements animation will wait before re-starting.    
-   */
   setProperties( args ) {
 
     const t = this,
     elementQuantity = Object.keys(t.elements).length,
+    elements = t.elements,
     validate = (arr) => typeof arr !== "undefined" && Array.isArray(arr) && arr.length === elementQuantity && typeof arr.reduce((a,b)=>a+b) === "number",
-    properties = Object.keys(args);
+    properties = Object.keys(args),
+    err = (property) => { delete t.elements; delete t.properties; throw `The "${property}" is invalid.` };
 
-    for ( let i = 0; i < properties.length; i++ ) {
+    for ( let i in properties ) {
 
       const property = properties[i],
       values = args[property],
       { starting, final, changeSpeed, initialDelay, rest } = values;
 
+      let measure = values.measure;
+      measure = typeof measure === "string" && measure.length !== 0 ? measure : "%"
+
       if ( validate(starting) && validate(final) && validate(changeSpeed) && validate(initialDelay) && validate(rest) ) {
 
         if ( t.properties.includes(properties[i]) === false )  { t.properties.push(properties[i]); }
 
-        for ( let I = 0; I < elementQuantity; I++ ) {
+        for ( let I in elements ) {
         
           let currentValue = t.elements[I].element.style[property];
           currentValue = currentValue.replace(/\D/g,""),
           currentValue = currentValue === "" ? 0 : currentValue;
 
-          // [ starting, final, changeSpeed, initialDelay, rest, onpause, verse ]
-          t.elements[I].values[property] = [starting[I], final[I], changeSpeed[I], initialDelay[I], rest[I], initialDelay[I] > 0 ? true : false, 0];
-          t.elements[I].style[property] = { value: starting[I], measure: "%" };
-          t.elements[I].cache[property] = [];
-          t.elements[I].cache._cached[property] = false;
-          t.elements[I].cache._cacheIndex[property] = 0;
-          t.elements[I].cache._pause[property] = [];
+          if ( starting[I] < final[I] && changeSpeed[I] > 0 && initialDelay[I] >= 0 && rest[I] >= 0 ) {
+ 
+           t.elements[I].values[property] = [starting[I], final[I], changeSpeed[I], initialDelay[I], rest[I], initialDelay[I] > 0 ? true : false, 0];
+           t.elements[I].style[property] = { value: starting[I], measure: measure };
+           t.elements[I].cache[property] = [];
+           t.elements[I].cache._cached[property] = false;
+           t.elements[I].cache._cacheIndex[property] = 0;
+           t.elements[I].cache._pause[property] = [];
+
+      	  }
+
+      	  else { err(property) }
 
         }
 
       }
 
-      else { console.warn(`The "${property}" is invalid.`); }
+      else { err(property) }
 
     }
 
@@ -98,12 +99,13 @@ class loopGroup extends Controller {
   HTMLUpdate() {
 
     const t = this,
+    elements = t.elements,
     elementQuantity = Object.keys(t.elements).length,
     properties = t.properties;
   
-    for ( let i = 0; i < elementQuantity; i++ ) {
+    for ( let i in elements ) {
 
-      for ( let I = 0; I < properties.length; I++ ) {
+      for ( let I in properties ) {
 
         const property = properties[I],
         { value, measure } = t.elements[i].style[property];
@@ -125,9 +127,9 @@ class loopGroup extends Controller {
 
     if ( typeof a !== "undefined" ) {
 
-      for ( let i = 0; i < Object.keys(elements).length; i++ ) {
+      for ( let i in elements ) {
 
-        for ( let I = 0; I < properties.length; I++ ) {
+        for ( let I in properties ) {
 
           const element = elements[i],
           property = properties[I],
@@ -223,11 +225,9 @@ class loopGroup extends Controller {
 
     if ( typeof a !== "undefined" ) {
 
-      const elementQuantity = Object.keys(elements).length;
+      for ( let i in elements ) {
 
-      for ( let i = 0; i < elementQuantity; i++ ) {
-
-        for ( let I = 0; I < properties.length; I++ ) {
+        for ( let I in properties ) {
 
           const element = elements[i],
           property = properties[I],
