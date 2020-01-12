@@ -19,7 +19,7 @@ class Controller {
 
           const styles = getComputedStyle(e[i]);
 
-          elements[i] = { element: e[i], style: {}, values: {} };
+          elements[i] = { element: e[i], style: {}, values: {}, cache: { _cached: {}, _cacheIndex: {}, _pause: {} } };
 
         }
 
@@ -79,7 +79,11 @@ class loopGroup extends Controller {
 
           // [ starting, final, changeSpeed, initialDelay, rest, onpause, verse ]
           t.elements[I].values[property] = [starting[I], final[I], changeSpeed[I], initialDelay[I], rest[I], initialDelay[I] > 0 ? true : false, 0];
-          t.elements[I].style[property] = { value: currentValue, measure: "%" }
+          t.elements[I].style[property] = { value: currentValue, measure: "%" };
+          t.elements[I].cache[property] = [];
+          t.elements[I].cache._cached[property] = false;
+          t.elements[I].cache._cacheIndex[property] = 0;
+          t.elements[I].cache._pause[property] = [];
 
         }
 
@@ -130,25 +134,71 @@ class loopGroup extends Controller {
           v = element.values[property],
           s = element.style[property],
           [ starting, final, changeSpeed, initialDelay, rest, onpause, verse ] = v,
-          { refreshRate, speedMultiplier } = a,
+          { refreshRate } = a,
           measure = s.measure,
-          cSpeed = verse === 0 ? changeSpeed : -changeSpeed;
+          cSpeed = verse === 0 ? changeSpeed : -changeSpeed,
+          cache = element.cache[property],
+          _cached =  element.cache._cached[property];
 
           let { value } = s;
 
           if ( onpause === false ) {
 
-            value += (cSpeed / (refreshRate / speedMultiplier));
+            if ( _cached === false ) {
 
-            value = value < starting ? starting : value;
-            value = value > final ? final : value;
+              value += (cSpeed / refreshRate);
 
-            t.elements[i].style[property].value = value;
+              value = value < starting ? starting : value;
+              value = value > final ? final : value;
 
-            if ( value >= final && verse === 0 || value <= starting && verse === 1 ) {
+              t.elements[i].style[property].value = value;
 
-              t.elements[i].values[property][6] = verse === 0 ? 1 : 0;
-              t.rest(i,property);
+              t.elements[i].cache[property].push(value);
+
+              if ( value >= final && verse === 0 || value <= starting && verse === 1 ) {
+
+                t.elements[i].values[property][6] = verse === 0 ? 1 : 0;
+                t.rest(i,property);
+                t.elements[i].cache._pause[property].push(cache.length - 1);
+
+              }
+
+              if (value <= starting && verse === 1) {
+
+                t.elements[i].cache._cached[property] = true;
+
+              }
+
+            }
+
+            else {
+
+              const cacheQuantity = cache.length,
+              pause = element.cache._pause[property],
+              k = element.cache._cacheIndex[property];
+              
+              let cacheIndex = k;
+              cacheIndex = cacheIndex < cacheQuantity ? cacheIndex : 0;
+
+              if ( !pause.includes(cacheIndex) ) {
+
+                t.elements[i].style[property].value = cache[cacheIndex];
+                t.elements[i].cache._cacheIndex[property] = cacheIndex + 1;
+
+              }
+
+              else if ( onpause === false && pause.includes(k) ) {
+                
+                t.elements[i].style[property].value = cache[cacheIndex];
+                t.elements[i].cache._cacheIndex[property] = cacheIndex + 1;
+
+              }
+
+              if ( pause.includes(t.elements[i].cache._cacheIndex[property]) ) {
+
+                t.rest(i,property);
+
+              }
 
             }
 
@@ -181,8 +231,7 @@ class loopGroup extends Controller {
           property = properties[I],
           v = element.values[property],
           onpause = v[5],
-          initialDelay = v[3],
-          speedMultiplier = a.speedMultiplier;
+          initialDelay = v[3];
 
           if ( onpause === true && initialDelay > 0 ) {
 
@@ -190,7 +239,7 @@ class loopGroup extends Controller {
 
               A.elements[B].values[C][5] = false;
 
-            }, (initialDelay / speedMultiplier), t, i, property);
+            }, initialDelay, t, i, property);
 
           }
 
@@ -210,7 +259,7 @@ class loopGroup extends Controller {
 
     if ( typeof refreshRate === "number" && refreshRate >= 1 ) {
 
-      t.animation = { onpause: false, refreshRate: refreshRate, initialDelays: false, speedMultiplier: 1 };
+      t.animation = { onpause: false, refreshRate: refreshRate, initialDelays: false };
 
       t.animation.display = setInterval(function(A){
 
@@ -264,8 +313,7 @@ class loopGroup extends Controller {
   rest( elementIndex, property ) {
 
     const t = this,
-    element = t.elements[elementIndex],
-    speedMultiplier = t.animation.speedMultiplier;
+    element = t.elements[elementIndex];
 
     if ( typeof element !== "undefined" && typeof property === "string" && t.properties.includes(property) ) {
 
@@ -275,7 +323,7 @@ class loopGroup extends Controller {
 
         A.elements[B].values[C][5] = false;
 
-      }, (element.values[property][4] / speedMultiplier), t, elementIndex, property);
+      }, element.values[property][4], t, elementIndex, property);
 
 
     }
