@@ -43,7 +43,5 @@ background.pause();
    in order to re-activate it you need to call the .startLoop() function again */
 background.reset();
 
-// it's also possible to make the animation faster of slower by changing the speedMultiplier variable
-bg.animation.speedMultiplier = 2; // 2x faster
-bg.animation.speedMultiplier = 0.1; // 10 times slower
 ```
+After finishing one cycle of the animation all the values are **cached**.
