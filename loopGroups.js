@@ -75,7 +75,7 @@ class loopGroup extends Controller {
 
           if ( starting[I] < final[I] && changeSpeed[I] > 0 && initialDelay[I] >= 0 && rest[I] >= 0 ) {
  
-           t.elements[I].values[property] = [starting[I], final[I], changeSpeed[I], initialDelay[I], rest[I], initialDelay[I] > 0 ? true : false, 0];
+           t.elements[I].values[property] = [starting[I], final[I], changeSpeed[I], initialDelay[I], rest[I], initialDelay[I], 0];
            t.elements[I].style[property] = { value: starting[I], measure: measure };
            t.elements[I].cache[property] = [];
            t.elements[I].cache._cached[property] = false;
@@ -136,7 +136,6 @@ class loopGroup extends Controller {
           v = element.values[property],
           s = element.style[property],
           [ starting, final, changeSpeed, initialDelay, rest, onpause, verse ] = v,
-          { refreshRate } = a,
           measure = s.measure,
           cSpeed = verse === 0 ? changeSpeed : -changeSpeed,
           cache = element.cache[property],
@@ -144,11 +143,11 @@ class loopGroup extends Controller {
 
           let { value } = s;
 
-          if ( onpause === false ) {
+          if ( onpause === 0 ) {
 
             if ( _cached === false ) {
 
-              value += (cSpeed / refreshRate);
+              value += (cSpeed / 62.51);
 
               value = value < starting && verse === 1 ? starting : value;
               value = value > final && verse === 0 ? final : value;
@@ -191,7 +190,7 @@ class loopGroup extends Controller {
 
               }
 
-              else if ( onpause === false && pause.includes(k) ) {
+              else if ( onpause === 0 && pause.includes(k) ) {
                 
                 t.elements[i].style[property].value = cache[cacheIndex];
                 t.elements[i].cache._cacheIndex[property] = cacheIndex + 1;
@@ -208,40 +207,10 @@ class loopGroup extends Controller {
 
           }
 
-        }
+          else {
 
-      }
-
-    }
-
-  }
-
-  initialDelays() {
-
-    const t = this,
-    elements = t.elements,
-    a = t.animation,
-    properties = t.properties;
-
-    if ( typeof a !== "undefined" ) {
-
-      for ( let i in elements ) {
-
-        for ( let I in properties ) {
-
-          const element = elements[i],
-          property = properties[I],
-          v = element.values[property],
-          onpause = v[5],
-          initialDelay = v[3];
-
-          if ( onpause === true && initialDelay > 0 ) {
-
-            setTimeout(function(A,B,C){
-
-              A.elements[B].values[C][5] = false;
-
-            }, initialDelay, t, i, property);
+          	t.elements[i].values[property][5] -= 52.51;
+          	t.elements[i].values[property][5] = t.elements[i].values[property][5] < 0 ? 0 : t.elements[i].values[property][5];
 
           }
 
@@ -249,35 +218,28 @@ class loopGroup extends Controller {
 
       }
 
-      t.animation.initialDelays = true;
-
     }
 
   }
 
-  startLoop( refreshRate ) {
+  startLoop() {
 
     const t = this;
 
-    if ( typeof refreshRate === "number" && refreshRate >= 1 ) {
+    if ( typeof t.animation === "undefined" ) {
 
-      t.animation = { onpause: false, refreshRate: refreshRate, initialDelays: false };
+      t.animation = { onpause: false, initialDelays: false };
 
       t.animation.display = setInterval(function(A){
 
-        if ( A.animation.initialDelays === false ) {
-
-          A.initialDelays();
-        }
-
-        if ( A.animation.onpause === false ) {
+        if ( A.animation.onpause === false && document.hidden === false ) {
 
           A.HTMLUpdate();
           A.calculateObjectsProperties();
 
         }
 
-      }, (1000 / refreshRate), t);
+      }, (1000 / 62.51), t);
     
     }
 
@@ -319,14 +281,7 @@ class loopGroup extends Controller {
 
     if ( typeof element !== "undefined" && typeof property === "string" && t.properties.includes(property) ) {
 
-      t.elements[elementIndex].values[property][5] = true;
-
-      setTimeout(function(A,B,C){
-
-        A.elements[B].values[C][5] = false;
-
-      }, element.values[property][4], t, elementIndex, property);
-
+      t.elements[elementIndex].values[property][5] = element.values[property][4];
 
     }
 
