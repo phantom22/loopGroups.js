@@ -2,7 +2,7 @@
 
 A tool to easily group elements and creating animation loops by adding multiple parameters.
 
-*Currently all the css properties that involve a number are supported!*
+*Currently all the css properties that involve numbers are supported!*
 
 ## CSS property parameters
 
