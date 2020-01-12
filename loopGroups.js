@@ -148,8 +148,8 @@ class loopGroup extends Controller {
 
               value += (cSpeed / refreshRate);
 
-              value = value < starting ? starting : value;
-              value = value > final ? final : value;
+              value = value < starting && verse === 1 ? starting : value;
+              value = value > final && verse === 0 ? final : value;
 
               t.elements[i].style[property].value = value;
 
@@ -159,7 +159,7 @@ class loopGroup extends Controller {
 
                 t.elements[i].values[property][6] = verse === 0 ? 1 : 0;
                 t.rest(i,property);
-                t.elements[i].cache._pause[property].push(cache.length - 1);
+                t.elements[i].cache._pause[property].push(cache.length);
 
               }
 
